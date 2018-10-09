@@ -18,6 +18,9 @@ fun main(args: Array<String>) {
 
     val horizontalForm  = SashForm(shell, SWT.HORIZONTAL or SWT.SMOOTH)
 
+    val paintCanvas = PaintCanvas(horizontalForm)
+    paintCanvas.layout = GridLayout()
+
     horizontalForm.pack()
 
     shell.pack()
