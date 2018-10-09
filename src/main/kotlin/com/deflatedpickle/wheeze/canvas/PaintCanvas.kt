@@ -18,16 +18,14 @@ class PaintCanvas(parent: Composite) : Composite(parent, SWT.BORDER) {
     val canvas = Canvas(this, SWT.NONE)
     var canvasBackground: Color = Display.getDefault().getSystemColor(SWT.COLOR_WHITE)
 
-    val penManager = PenManager(ControlPenOwner(canvas))
+    private val penManager = PenManager(ControlPenOwner(canvas))
 
-    var brushSizeDefault = 10
-    var brushSize = brushSizeDefault
-
-    var brushColour: Color = Display.getDefault().getSystemColor(SWT.COLOR_BLACK)
-
-    var brushOpacity = 255
+    val brushList = mutableListOf(Brush(parent.display))
+    var activeBrush = brushList[0]
 
     var paintTool = PaintTools.BRUSH
+
+    var brushSizeDefault = 10
 
     var cursorLocation = Point(0, 0)
 
@@ -52,10 +50,10 @@ class PaintCanvas(parent: Composite) : Composite(parent, SWT.BORDER) {
             override fun mouseDown(e: MouseEvent) {
                 doDraw = true
 
-                brushSize = brushSizeDefault
-                brushOpacity = 255
+                activeBrush.size = brushSizeDefault
+                activeBrush.opacity = 255
                 if (canvas.display.focusControl != null) {
-                    doPaint(brushSize, brushColour, cursorLocation)
+                    doPaint(activeBrush.size, activeBrush.colour, cursorLocation)
                 }
             }
 
@@ -69,7 +67,7 @@ class PaintCanvas(parent: Composite) : Composite(parent, SWT.BORDER) {
                 cursorLocation = canvas.display.focusControl.toControl(canvas.display.cursorLocation)
 
                 if (doDraw) {
-                    doPaint(brushSize, brushColour, cursorLocation)
+                    doPaint(activeBrush.size, activeBrush.colour, cursorLocation)
                 }
             }
         }
@@ -85,8 +83,8 @@ class PaintCanvas(parent: Composite) : Composite(parent, SWT.BORDER) {
         penManager.pen.addListener(object : PenAdapter() {
             override fun penLevelEvent(e: PLevelEvent) {
                 if (e.levels[0].type == PLevel.Type.PRESSURE) {
-                    brushSize = (e.levels[0].value * 10).toInt()
-                    brushOpacity = (e.levels[0].value * 255).toInt()
+                    activeBrush.size = (e.levels[0].value * 10).toInt()
+                    activeBrush.opacity = (e.levels[0].value * 255).toInt()
                 }
             }
 
@@ -114,10 +112,10 @@ class PaintCanvas(parent: Composite) : Composite(parent, SWT.BORDER) {
                     gc.background = canvasBackground
                 }
                 else {
-                    gc.background = colour
+                    gc.background = activeBrush.colour
                 }
 
-                gc.alpha = brushOpacity
+                gc.alpha = activeBrush.opacity
 
                 gc.fillOval(location.x, location.y, size, size)
             }
