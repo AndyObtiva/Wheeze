@@ -12,6 +12,7 @@ fun main(args: Array<String>) {
     val display = Display()
     val shell = Shell(display)
     shell.text = "Wheeze"
+    shell.setMinimumSize(400, 400)
 
     val layout = FillLayout()
     shell.layout = layout

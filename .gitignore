@@ -31,3 +31,6 @@ build
 *.iml
 out
 gen
+
+# Other files
+jpen-2-3-64.dll
