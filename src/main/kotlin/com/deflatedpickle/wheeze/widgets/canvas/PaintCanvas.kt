@@ -1,6 +1,7 @@
-package com.deflatedpickle.wheeze.canvas
+package com.deflatedpickle.wheeze.widgets.canvas
 
-import com.deflatedpickle.wheeze.canvas.pen.ControlPenOwner
+import com.deflatedpickle.wheeze.util.Brush
+import com.deflatedpickle.wheeze.util.pen.ControlPenOwner
 import jpen.*
 import jpen.event.PenAdapter
 import org.eclipse.swt.SWT

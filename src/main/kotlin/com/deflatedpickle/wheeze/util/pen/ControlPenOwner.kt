@@ -1,4 +1,4 @@
-package com.deflatedpickle.wheeze.canvas.pen
+package com.deflatedpickle.wheeze.util.pen
 
 import java.util.Arrays
 import jpen.owner.PenClip

@@ -1,4 +1,4 @@
-package com.deflatedpickle.wheeze.canvas.pen
+package com.deflatedpickle.wheeze.util.pen
 
 import java.awt.geom.Point2D
 import java.awt.Point

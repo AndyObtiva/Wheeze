@@ -1,4 +1,4 @@
-package com.deflatedpickle.wheeze.canvas
+package com.deflatedpickle.wheeze.widgets.canvas
 
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridLayout

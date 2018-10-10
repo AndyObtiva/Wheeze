@@ -1,4 +1,4 @@
-package com.deflatedpickle.wheeze.canvas
+package com.deflatedpickle.wheeze.util
 
 import org.eclipse.swt.graphics.Color
 import org.eclipse.swt.graphics.RGB

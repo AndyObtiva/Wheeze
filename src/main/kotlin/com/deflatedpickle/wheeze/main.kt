@@ -1,8 +1,6 @@
 package com.deflatedpickle.wheeze
 
-import com.deflatedpickle.wheeze.canvas.CanvasHolder
-import com.deflatedpickle.wheeze.canvas.CanvasTabs
-import com.deflatedpickle.wheeze.toolbars.Hotbar
+import com.deflatedpickle.wheeze.widgets.canvas.CanvasTabs
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.SashForm
 import org.eclipse.swt.layout.FillLayout
