@@ -15,7 +15,7 @@ class HotBar(parent: Composite) : Composite(parent, SWT.NONE) {
 
     init {
         for (i in barList) {
-            val coolItem = CoolItem(coolBar, SWT.NONE)
+            val coolItem = CoolItem(coolBar, SWT.DROP_DOWN)
             val itemSize = i.computeSize(SWT.DEFAULT, SWT.DEFAULT)
             coolItem.preferredSize = coolItem.computeSize(itemSize.x, itemSize.y)
             coolItem.control = i

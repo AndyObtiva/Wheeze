@@ -1,6 +1,7 @@
 package com.deflatedpickle.wheeze.widgets.toolbars.hotbar
 
 import com.deflatedpickle.wheeze.util.CommonCommands
+import com.deflatedpickle.wheeze.util.Lang
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.FillLayout
 import org.eclipse.swt.widgets.Composite
@@ -12,7 +13,7 @@ class FileBar(parent: Composite) : Composite(parent, SWT.NONE) {
 
     init {
         val newButton = ToolItem(toolBar, SWT.PUSH)
-        newButton.text = "New"
+        newButton.text = Lang.bundle.getString("button.new.name")
         newButton.addListener(SWT.Selection) {
             CommonCommands.new()
         }

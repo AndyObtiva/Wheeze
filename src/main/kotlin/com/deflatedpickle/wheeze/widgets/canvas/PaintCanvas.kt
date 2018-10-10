@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Display
 import org.eclipse.swt.widgets.Event
 
 class PaintCanvas(parent: Composite) : Composite(parent, SWT.NONE) {
-    val canvas = Canvas(this, SWT.DOUBLE_BUFFERED)
+    val canvas = Canvas(this, SWT.DOUBLE_BUFFERED or SWT.NO_REDRAW_RESIZE)
     var canvasBackground: Color = Display.getDefault().getSystemColor(SWT.COLOR_WHITE)
 
     private val canvasLayoutData = GridData(SWT.CENTER, SWT.CENTER, true, true)
