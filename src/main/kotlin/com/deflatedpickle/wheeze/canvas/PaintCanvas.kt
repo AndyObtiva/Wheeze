@@ -14,9 +14,11 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Display
 import org.eclipse.swt.widgets.Event
 
-class PaintCanvas(parent: Composite) : Composite(parent, SWT.BORDER) {
-    val canvas = Canvas(this, SWT.NONE)
+class PaintCanvas(parent: Composite) : Composite(parent, SWT.NONE) {
+    val canvas = Canvas(this, SWT.DOUBLE_BUFFERED)
     var canvasBackground: Color = Display.getDefault().getSystemColor(SWT.COLOR_WHITE)
+
+    private val canvasLayoutData = GridData(SWT.CENTER, SWT.CENTER, true, true)
 
     private val penManager = PenManager(ControlPenOwner(canvas))
 
@@ -37,7 +39,6 @@ class PaintCanvas(parent: Composite) : Composite(parent, SWT.BORDER) {
     }
 
     init {
-        val canvasLayoutData = GridData(GridData.FILL_BOTH)
         canvas.layoutData = canvasLayoutData
 
         canvas.background = canvasBackground
@@ -48,6 +49,8 @@ class PaintCanvas(parent: Composite) : Composite(parent, SWT.BORDER) {
             override fun mouseDoubleClick(e: MouseEvent) { }
 
             override fun mouseDown(e: MouseEvent) {
+                canvas.setFocus()
+
                 doDraw = true
 
                 activeBrush.size = brushSizeDefault
@@ -120,5 +123,10 @@ class PaintCanvas(parent: Composite) : Composite(parent, SWT.BORDER) {
                 gc.fillOval(location.x, location.y, size, size)
             }
         }))
+    }
+
+    fun setCanvasSize(width: Int, height: Int) {
+        canvasLayoutData.widthHint = width
+        canvasLayoutData.heightHint = height
     }
 }
