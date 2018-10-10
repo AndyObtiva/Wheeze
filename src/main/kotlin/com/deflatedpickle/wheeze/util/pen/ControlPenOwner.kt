@@ -62,6 +62,6 @@ class ControlPenOwner(val activeControl: Control) : PenOwner {
     }
 
     override fun enforceSinglePenManager(): Boolean {
-        return true
+        return false
     }
 }
