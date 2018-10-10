@@ -6,7 +6,7 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.TabFolder
 import org.eclipse.swt.widgets.TabItem
 
-class CanvasTabs(parent: Composite) : Composite(parent, SWT.NULL) {
+class CanvasTabs(parent: Composite) : Composite(parent, SWT.NONE) {
     private val tabFolder = TabFolder(this, SWT.TOP)
 
     fun newCanvas(name: String) {
