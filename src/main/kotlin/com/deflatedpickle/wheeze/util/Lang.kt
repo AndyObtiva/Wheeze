@@ -3,9 +3,7 @@ package com.deflatedpickle.wheeze.util
 import java.util.*
 
 object Lang {
-    const val operatingSystem = "WINDOWS"
-
-    val locale = Locale("en", "GB", operatingSystem)
+    val locale = Locale(Config.language, Config.country, Config.operatingSystem)
 
     val bundle = ResourceBundle.getBundle("lang/lang", locale)
 }
