@@ -2,6 +2,7 @@ package com.deflatedpickle.wheeze.widgets.canvas
 
 import com.deflatedpickle.wheeze.util.Brush
 import com.deflatedpickle.wheeze.util.pen.ControlPenOwner
+import com.deflatedpickle.wheeze.widgets.canvas.layers.LayeredCanvas
 import jpen.*
 import jpen.event.PenAdapter
 import org.eclipse.swt.SWT
@@ -16,7 +17,7 @@ import org.eclipse.swt.widgets.Display
 import org.eclipse.swt.widgets.Event
 
 class PaintCanvas(parent: Composite) : Composite(parent, SWT.NONE) {
-    val canvas = Canvas(this, SWT.DOUBLE_BUFFERED or SWT.NO_REDRAW_RESIZE)
+    val canvas = LayeredCanvas(this, SWT.DOUBLE_BUFFERED or SWT.NO_REDRAW_RESIZE)
     var canvasBackground: Color = Display.getDefault().getSystemColor(SWT.COLOR_WHITE)
 
     private val canvasLayoutData = GridData(SWT.CENTER, SWT.CENTER, true, true)
@@ -110,7 +111,7 @@ class PaintCanvas(parent: Composite) : Composite(parent, SWT.NONE) {
         paintListener.paintControl(PaintEvent(object : Event() {
             init {
                 widget = canvas
-                gc = paintGC
+                gc = canvas.layers[canvas.selectedLayer].gc
 
                 if (paintTool == PaintTools.ERASER) {
                     gc.background = canvasBackground

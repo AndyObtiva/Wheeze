@@ -1,6 +1,7 @@
 package com.deflatedpickle.wheeze
 
 import com.deflatedpickle.wheeze.widgets.Widgets
+import com.deflatedpickle.wheeze.widgets.sidebars.SideBar
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.FillLayout
 import org.eclipse.swt.layout.GridData
@@ -24,6 +25,9 @@ fun main(args: Array<String>) {
     val horizontalForm = Widgets.horizontalForm
     horizontalForm.layoutData = GridData(SWT.FILL, SWT.FILL, true, true)
     horizontalForm.layout = FillLayout()
+
+    val sideBar = Widgets.sideBar
+    sideBar.layout = FillLayout()
 
     val canvasTabs = Widgets.canvasTabs
     canvasTabs.layout = FillLayout()

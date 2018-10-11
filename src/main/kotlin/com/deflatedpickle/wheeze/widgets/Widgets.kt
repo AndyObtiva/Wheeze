@@ -2,6 +2,7 @@ package com.deflatedpickle.wheeze.widgets
 
 import com.deflatedpickle.wheeze.widgets.canvas.CanvasTabs
 import com.deflatedpickle.wheeze.widgets.menus.MenuBar
+import com.deflatedpickle.wheeze.widgets.sidebars.SideBar
 import com.deflatedpickle.wheeze.widgets.toolbars.hotbar.HotBar
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.SashForm
@@ -17,6 +18,8 @@ object Widgets {
     val hotbar = HotBar(shell)
 
     val horizontalForm = SashForm(shell, SWT.HORIZONTAL or SWT.SMOOTH)
+
+    val sideBar = SideBar(horizontalForm)
 
     val canvasTabs = CanvasTabs(horizontalForm)
 }
