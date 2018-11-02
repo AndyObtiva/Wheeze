@@ -32,6 +32,7 @@ fun main(args: Array<String>) {
     val sideBar = Widgets.sideBar
     sideBar.layout = GridLayout()
 
+    horizontalForm.weights = intArrayOf(2, 1)
     horizontalForm.pack()
 
     shell.pack()

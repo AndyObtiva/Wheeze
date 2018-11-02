@@ -8,7 +8,9 @@ class LayeredCanvas(parent: Composite, style: Int) : Canvas(parent, style) {
 
     var selectedLayer = 0
 
-    fun addLayer() {
+    fun addLayer(): Layer {
         layers.add(Layer(this))
+
+        return layers[layers.size - 1]
     }
 }

@@ -54,13 +54,13 @@ class LayersPanel(parent: Composite) : Composite(parent, SWT.NONE) {
     }
 
     fun addLayer(name: String) {
-        CommonVariables.currentCanvas!!.canvas.canvas.addLayer()
+        val layer = CommonVariables.currentCanvas!!.canvas.canvas.addLayer()
 
         val item = TreeItem(tree, SWT.NONE)
         // item.setText(arrayOf(name))
 
         // FIXME: The widget bar does not span the width of the tree item
-        val widgetBar = LayerBar(tree)
+        val widgetBar = LayerBar(tree, item, layer)
         widgetBar.layout = GridLayout()
         widgetBar.layoutData = GridData(GridData.FILL_HORIZONTAL)
         widgetBar.mainButton.text = name
