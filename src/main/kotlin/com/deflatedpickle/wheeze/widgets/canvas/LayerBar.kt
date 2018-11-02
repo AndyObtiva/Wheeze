@@ -17,6 +17,8 @@ class LayerBar(parent: Composite) : Composite(parent, SWT.NONE) {
     val deleteButton = ToolItem(toolBar, SWT.CHECK)
 
     init {
+        this.layoutData = GridLayout()
+
         hideButton.text = "#"
         deleteButton.text = "X"
 

@@ -19,7 +19,7 @@ object Widgets {
 
     val horizontalForm = SashForm(shell, SWT.HORIZONTAL or SWT.SMOOTH)
 
-    val sideBar = SideBar(horizontalForm)
-
     val canvasTabs = CanvasTabs(horizontalForm)
+
+    val sideBar = SideBar(horizontalForm)
 }

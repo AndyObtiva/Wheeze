@@ -14,27 +14,31 @@ class LayersPanel(parent: Composite) : Composite(parent, SWT.NONE) {
     val group = Group(this, SWT.NONE)
 
     val newButton = Button(group, SWT.PUSH)
+    // val newFolderButton = Button(group, SWT.PUSH)
 
     val tree = Tree(group, SWT.BORDER or SWT.FULL_SELECTION or SWT.MULTI)
 
     init {
-        val buttonLayout = GridData(GridData.FILL_HORIZONTAL)
-
         val gridData = GridData(GridData.FILL_BOTH)
+        gridData.horizontalSpan = 2
 
-        group.layout = GridLayout()
-        group.layoutData = gridData
+        group.layout = GridLayout(2, true)
+        group.layoutData = GridData(GridData.FILL_BOTH)
         group.text = "Layers"
 
         tree.layoutData = gridData
 
-        newButton.text = "+"
+        newButton.text = "New Layer"
         newButton.addListener(SWT.Selection) {
             if (CommonVariables.currentCanvas != null) {
                 addLayer("Untitled")
             }
         }
+        val buttonLayout = GridData(GridData.FILL_HORIZONTAL)
         newButton.layoutData = buttonLayout
+
+        // newFolderButton.text = "New Folder"
+        // newFolderButton.layoutData = buttonLayout
 
         // tree.headerVisible = true
 
@@ -65,6 +69,13 @@ class LayersPanel(parent: Composite) : Composite(parent, SWT.NONE) {
         treeEditor.horizontalAlignment = SWT.LEFT
         treeEditor.verticalAlignment = SWT.TOP
         treeEditor.grabHorizontal = true
+        treeEditor.minimumWidth = 200
+        treeEditor.minimumHeight = 25
+
+        // TODO: Move from multiple listeners to a single one that loops through a list of layerBars
+        tree.addListener(SWT.Resize) {
+            widgetBar.setSize(tree.clientArea.width - 1, widgetBar.size.y)
+        }
 
         treeEditor.setEditor(widgetBar, item)
 

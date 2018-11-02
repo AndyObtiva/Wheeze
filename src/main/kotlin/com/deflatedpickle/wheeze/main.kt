@@ -26,11 +26,11 @@ fun main(args: Array<String>) {
     horizontalForm.layoutData = GridData(SWT.FILL, SWT.FILL, true, true)
     horizontalForm.layout = FillLayout()
 
-    val sideBar = Widgets.sideBar
-    sideBar.layout = FillLayout()
-
     val canvasTabs = Widgets.canvasTabs
     canvasTabs.layout = FillLayout()
+
+    val sideBar = Widgets.sideBar
+    sideBar.layout = GridLayout()
 
     horizontalForm.pack()
 
