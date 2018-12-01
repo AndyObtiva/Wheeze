@@ -12,6 +12,10 @@ sourceCompatibility = 1.8
 repositories {
     maven {     url 'http://dl.bintray.com/kotlin/kotlin-eap' }
     mavenCentral()
+
+    flatDir {
+        dirs "libs"
+    }
 }
 
 dependencies {
@@ -20,6 +24,12 @@ dependencies {
     compile("org.eclipse.platform:org.eclipse.swt.win32.win32.x86_64:3.106.3") {
         transitive = false
     }
+
+    // compile 'org.reflections:reflections:0.9.11'
+    compile 'com.google.guava:guava:27.0.1-jre'
+
+    // Local
+    compile name: "NetRexxC"
 }
 
 compileKotlin {

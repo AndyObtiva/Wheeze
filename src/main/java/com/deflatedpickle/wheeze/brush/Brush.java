@@ -117,6 +117,6 @@ public class Brush {
      *
      * @param penPressure The current tablet pressure applied.
      */
-    public void paint(Float penPressure) {
+    public void paint(float penPressure) {
     }
 }
