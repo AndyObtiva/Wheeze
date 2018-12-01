@@ -1,8 +1,22 @@
+buildscript {
+    repositories { jcenter() }
+
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:[1.2.2,2.0)'
+
+        classpath 'com.github.jruby-gradle:jruby-gradle-plugin:1.6.0'
+        classpath 'com.github.jruby-gradle:jruby-gradle-jar-plugin:1.6.0'
+    }
+}
+
 plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.3.0'
 }
 apply plugin: 'java'
+
+apply plugin: "com.github.jruby-gradle.base"
+apply plugin: "com.github.jruby-gradle.jar"
 
 group 'com.deflatedpickle.wheeze'
 version '0.1.0'
@@ -18,6 +32,8 @@ repositories {
     }
 }
 
+import com.github.jrubygradle.JRubyExec
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
@@ -30,6 +46,9 @@ dependencies {
 
     // Local
     compile name: "NetRexxC"
+
+    // JRuby
+    jrubyJar "rubygems:glimmer:0.1.9.470+"
 }
 
 compileKotlin {
@@ -37,4 +56,8 @@ compileKotlin {
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+jrubyJar {
+    initScript "${projectDir}/src/main/ruby/com/deflatedpickle/wheeze/main.rb"
 }

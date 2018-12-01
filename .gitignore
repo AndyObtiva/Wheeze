@@ -31,3 +31,6 @@ build
 *.iml
 out
 gen
+
+# Other files
+libs/
