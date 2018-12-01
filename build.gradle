@@ -32,8 +32,6 @@ repositories {
     }
 }
 
-import com.github.jrubygradle.JRubyExec
-
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
@@ -43,6 +41,8 @@ dependencies {
 
     // compile 'org.reflections:reflections:0.9.11'
     compile 'com.google.guava:guava:27.0.1-jre'
+
+    compile 'org.jruby:jruby:9.2.4.1'
 
     // Local
     compile name: "NetRexxC"
@@ -56,8 +56,4 @@ compileKotlin {
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
-}
-
-jrubyJar {
-    initScript "${projectDir}/src/main/ruby/com/deflatedpickle/wheeze/main.rb"
 }
