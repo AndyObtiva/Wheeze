@@ -1,6 +1,8 @@
 package com.deflatedpickle.wheeze.brush;
 
 import com.deflatedpickle.wheeze.util.Size;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Point;
 
 /**
  * Defines a brush to be used by the canvas.
@@ -18,15 +20,17 @@ public class Brush {
     }
 
     /**
-     * The name of the brush.
+     * The name of the brush
      */
     @SuppressWarnings("WeakerAccess")
     public String name;
     /**
      * The brush mode.
+     *
+     * @see Mode
      */
     @SuppressWarnings("WeakerAccess")
-    public Mode mode;
+    public final Mode mode;
     /**
      * The width of the brush.
      */
@@ -48,7 +52,7 @@ public class Brush {
     // @SuppressWarnings("WeakerAccess")
     // public Boolean heightByPressure;
     /**
-     * The opacity of the brush.
+     * The opacity of the brush from 0 to 255.
      */
     @SuppressWarnings("WeakerAccess")
     public Integer opacity;
@@ -75,8 +79,8 @@ public class Brush {
         this.name = "Untitled Brush";
         this.mode = Mode.CONTINUOUS;
 
-        this.width = new Size(20f, 0);
-        this.height = new Size(20f, 0);
+        this.width = new Size(20, 0);
+        this.height = new Size(20, 0);
         this.opacity = 100;
         this.density = 1f;
     }
@@ -115,8 +119,10 @@ public class Brush {
     /**
      * Places a single paint of the brush
      *
-     * @param penPressure The current tablet pressure applied.
+     * @param gc The canvas the brush is drawing on.
+     * @param location The location to draw at.
+     * // @param penPressure The current tablet pressure applied.
      */
-    public void paint(float penPressure) {
+    public void paint(GC gc, Point location) {
     }
 }

@@ -1,10 +1,28 @@
 package com.deflatedpickle.wheeze.util
 
+import com.deflatedpickle.wheeze.brush.Brush
 import org.netrexx.process.NetRexxC
 import java.io.File
 import java.nio.file.Paths
 
 object BrushUtil {
+    /**
+     * The list of registered brushes.
+     */
+    val brushList = mutableListOf<Brush>()
+    /**
+     * The brush currently selected.
+     */
+    var activeBrush: Brush? = null
+    // /**
+    //  * The list of registered erasers.
+    //  */
+    // val eraserList = mutableListOf<Brush>()
+    // /**
+    //  * The eraser currently selected.
+    //  */
+    // val activeEraser: Brush? = null
+
     /**
      * Loads all the brushes in a given path.
      *

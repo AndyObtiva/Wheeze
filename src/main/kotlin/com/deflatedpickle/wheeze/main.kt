@@ -19,13 +19,13 @@ fun main(args: Array<String>) {
     for (i in brushClasses) {
         val clazz = ClassLoader.getSystemClassLoader().loadClass(i.name)
 
-        val field = clazz.getField("name")
-        val instance = clazz.newInstance()
-
-        clazz.getMethod("paint", Float::class.java).invoke(instance, 0f)
-
-        println(field.get(instance))
+        // Make an instance of each brush
+        val instance: Brush = clazz.newInstance() as Brush
+        // Add the instance to the brush list
+        BrushUtil.brushList.add(instance)
     }
+
+    BrushUtil.activeBrush = BrushUtil.brushList[0]
 
     // Run the window script
     val ruby = ScriptingContainer(LocalVariableBehavior.PERSISTENT)

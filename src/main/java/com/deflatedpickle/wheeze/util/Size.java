@@ -4,27 +4,27 @@ public class Size {
     /**
      * The maximum value of the size.
      */
-    private final Float valueMax;
+    private final int valueMax;
     /**
      * The current value of the size.
      */
-    private Float valueCurrent;
+    private int valueCurrent;
     /**
      * The minimum value of the size, as a percentage of the maximum.
      */
     // TODO: Set and use the minimum value.
     // private final Integer valueMin;
 
-    public Size(Float valueMax, Integer valueMin) {
+    public Size(int valueMax, int valueMin) {
         this.valueMax = valueMax;
         // this.valueMin = valueMin;
     }
 
-    public Float getValueMax() {
+    public int getValueMax() {
         return valueMax;
     }
 
-    public Float getValueCurrent() {
+    public int getValueCurrent() {
         return valueCurrent;
     }
 
@@ -32,7 +32,7 @@ public class Size {
     //     return valueMin;
     // }
 
-    public void setValueCurrent(Float newValue) {
+    public void setValueCurrent(int newValue) {
         if (newValue > valueMax /*&& newValue < valueMin*/) {
             valueCurrent = valueMax;
         }
