@@ -32,7 +32,10 @@ class Window
       # end
 
       @canvas = canvas(:border, :double_buffered, :no_redraw_resize) do
-        layout_data GridData.new(:fill.swt_constant, :fill.swt_constant, true, true)
+        grid_data = GridData.new(:center.swt_constant, :center.swt_constant, true, true)
+        grid_data.widthHint = 340
+        grid_data.heightHint = 340
+        layout_data grid_data
 
         on_mouse_down do
           @do_draw = true

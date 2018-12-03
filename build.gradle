@@ -55,7 +55,7 @@ dependencies {
     compile name: "NetRexxC"
 
     // JRuby
-    jrubyJar "rubygems:glimmer:0.1.9.470+"
+    gems "rubygems:glimmer:0.1.9.470+"
 }
 
 compileKotlin {

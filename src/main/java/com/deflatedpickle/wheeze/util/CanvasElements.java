@@ -11,6 +11,10 @@ import org.eclipse.swt.widgets.Event;
 
 import java.util.Objects;
 
+/**
+ * A utility singleton to quickly provide elements needed for the JRuby GUI.
+ */
+// TODO: Convert to Ruby
 public class CanvasElements {
     private static CanvasElements ourInstance = new CanvasElements();
     public static CanvasElements getInstance() {
@@ -19,6 +23,7 @@ public class CanvasElements {
 
     public PaintListener paintListener = e -> e.gc.setAntialias(SWT.ON);
 
+    @SuppressWarnings("WeakerAccess")
     public GC paintGC;
 
     public void doPaint(Canvas canvas, Point cursorLocation) {
