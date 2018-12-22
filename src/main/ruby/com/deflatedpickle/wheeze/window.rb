@@ -19,19 +19,35 @@ class Window
 
   def initialize
     @do_draw = false
+    @do_background = true
     @cursor_location = Point.new(0, 0)
     @paint_listener = CanvasElements.get_instance.paintListener
 
     @shell = shell do
       text 'Wheeze'
       minimum_size 400, 400
-      layout GridLayout.new
+      layout GridLayout.new(2, false)
 
-      # paintable_canvas(:border) do
-      #   layout_data GridData.new(:fill.swt_constant, :fill.swt_constant, true, true)
-      # end
+      tool_bar(:vertical, :wrap, :shadow_out) do
+        @button_brush = tool_item(:radio) do
+          text 'Brush'
+          selection true
 
-      @canvas = canvas(:border, :double_buffered, :no_redraw_resize) do
+          on_widget_selected  do
+            CanvasElements.get_instance.set_active_tool_type(ToolType::BRUSH)
+          end
+        end
+
+        @button_eraser = tool_item(:radio) do
+          text 'Eraser'
+
+          on_widget_selected  do
+            CanvasElements.get_instance.set_active_tool_type(ToolType::ERASER)
+          end
+        end
+      end
+
+      @canvas = canvas(:border, :double_buffered, :no_redraw_resize, :no_background) do
         grid_data = GridData.new(:center.swt_constant, :center.swt_constant, true, true)
         grid_data.widthHint = 340
         grid_data.heightHint = 340
@@ -57,6 +73,8 @@ class Window
         end
 
         on_focus_gained do
+          CanvasElements.get_instance.draw_background(@canvas.widget) if @do_background
+          @do_background = false
           set_cursor
         end
       end
@@ -64,10 +82,12 @@ class Window
       @canvas.widget.add_paint_listener(@paint_listener)
     end
 
+    CanvasElements.get_instance.prepare_graphics(@canvas.widget)
+
     @shell.open
   end
 
-  def set_cursor()
+  def set_cursor
     @location_temp = Display.get_default.cursor_location
     @cursor_location = Display.get_default.focus_control.to_control(@location_temp.x, @location_temp.y)
   end
