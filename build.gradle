@@ -47,7 +47,7 @@ dependencies {
     }
 
     // compile 'org.reflections:reflections:0.9.11'
-    compile 'com.google.guava:guava:27.0.1-jre'
+    // compile 'com.google.guava:guava:27.0.1-jre'
 
     compile 'org.jruby:jruby:9.2.4.1'
 

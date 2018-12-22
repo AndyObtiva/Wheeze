@@ -1,11 +1,12 @@
 package com.deflatedpickle.wheeze.util
 
 import com.deflatedpickle.wheeze.brush.Brush
-import org.netrexx.process.NetRexxC
+import org.netrexx.process.NetRexxA
 import java.io.File
-import java.nio.file.Paths
+import java.lang.Class
 
 object BrushUtil {
+    val netRexx = NetRexxA()
     /**
      * The list of registered brushes.
      */
@@ -30,32 +31,23 @@ object BrushUtil {
      */
     fun loadBrushes(path: String) {
         val fileArray = mutableListOf<String>()
+        val nameArray = mutableListOf<String>()
 
         for (i in File(path).walkTopDown().drop(1)) {
             if (i.readText().contains("extends Brush")) {
                 fileArray.add(i.absolutePath)
+                nameArray.add(i.nameWithoutExtension)
             }
         }
 
-        // TODO: Move the files to out/ with a CLI arg
-        NetRexxC.main2(fileArray.toTypedArray())
+        // NetRexxC.main2(fileArray.toTypedArray())
 
-        cleanBrushes()
-    }
+        // Pass the brush files followed by the command line arguments
+        this.netRexx.parse(fileArray.toTypedArray(), arrayOf())
 
-    /**
-     * Moves the brushes into out/.
-     */
-    private fun cleanBrushes() {
-        val currentPath = Paths.get("").toAbsolutePath().toString()
-        for (i in File(currentPath).walkTopDown()) {
-            if (!i.absolutePath.contains("out") && i.name.endsWith("Brush.class")) {
-                i.copyTo(
-                    File(currentPath + "\\out\\production\\classes\\com\\deflatedpickle\\wheeze\\brush\\custom\\" + i.name),
-                    true
-                )
-                i.delete()
-            }
+        for (i in nameArray) {
+            val clazz: Class<Brush> = this.netRexx.getClassObject("com.deflatedpickle.wheeze.brush.custom", i) as Class<Brush>
+            this.brushList.add(clazz.newInstance())
         }
     }
 }

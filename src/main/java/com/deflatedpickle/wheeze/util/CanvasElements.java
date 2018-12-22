@@ -50,7 +50,6 @@ public class CanvasElements {
     public void doPaint(Canvas canvas, Point cursorLocation) {
         int color;
 
-        System.out.println(activeToolType);
         switch (activeToolType) {
             case BRUSH:
                 color = SWT.COLOR_BLACK;
