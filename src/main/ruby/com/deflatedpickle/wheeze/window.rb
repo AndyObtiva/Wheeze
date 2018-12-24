@@ -5,6 +5,8 @@ require 'glimmer'
 
 # Creates the window
 class Window
+  include Glimmer
+
   include_package 'org.eclipse.swt'
   include_package 'org.eclipse.swt.widgets'
   include_package 'org.eclipse.swt.layout'
@@ -14,10 +16,10 @@ class Window
   # java_import 'com.deflatedpickle.wheeze.widgets.PaintableCanvas'
   # include_package 'com.deflatedpickle.wheeze.widgets'
   include_package 'com.deflatedpickle.wheeze.util'
-
-  include Glimmer
+  include_package 'com.deflatedpickle.wheeze.widgets'
 
   def initialize
+    @first_focus = true
     @do_draw = false
     @do_background = true
     @cursor_location = Point.new(0, 0)
@@ -26,9 +28,12 @@ class Window
     @shell = shell do
       text 'Wheeze'
       minimum_size 400, 400
-      layout GridLayout.new(2, false)
+      layout GridLayout.new(3, false)
 
       tool_bar(:vertical, :wrap, :shadow_out) do
+        grid_data = GridData.new(:center.swt_constant, :fill.swt_constant, false, true)
+        layout_data grid_data
+
         @button_brush = tool_item(:radio) do
           text 'Brush'
           selection true
@@ -44,6 +49,21 @@ class Window
           on_widget_selected  do
             CanvasElements.get_instance.set_active_tool_type(ToolType::ERASER)
           end
+        end
+      end
+
+      @brush_list_placeholder = label(:none)
+
+      # TODO: Find a better way to do custom widgets
+      on_focus_gained do
+        if @first_focus
+          @first_focus = false
+
+          CompatibilityUtil.get_instance.shell = @shell.widget
+
+          brush_list = BrushList.new(CompatibilityUtil.get_instance.shell, SWT::BORDER)
+          brush_list.move_above @brush_list_placeholder.widget
+          @brush_list_placeholder.widget.dispose
         end
       end
 
@@ -89,7 +109,12 @@ class Window
 
   def set_cursor
     @location_temp = Display.get_default.cursor_location
-    @cursor_location = Display.get_default.focus_control.to_control(@location_temp.x, @location_temp.y)
+
+    if !Display.get_default.focus_control.nil?
+      @cursor_location = Display.get_default.focus_control.to_control(@location_temp.x, @location_temp.y)
+    else
+      @cursor_location = Point.new(0, 0)
+    end
   end
 end
 
