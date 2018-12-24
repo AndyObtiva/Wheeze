@@ -27,7 +27,7 @@ class Window
 
     @shell = shell do
       text 'Wheeze'
-      minimum_size 400, 400
+      minimum_size 500, 400
       layout GridLayout.new(3, false)
 
       tool_bar(:vertical, :wrap, :shadow_out) do
@@ -64,6 +64,9 @@ class Window
           brush_list = BrushList.new(CompatibilityUtil.get_instance.shell, SWT::BORDER)
           brush_list.move_above @brush_list_placeholder.widget
           @brush_list_placeholder.widget.dispose
+          @shell.widget.layout
+
+          @canvas.widget.set_focus
         end
       end
 
