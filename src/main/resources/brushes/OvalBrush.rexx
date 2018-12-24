@@ -11,5 +11,5 @@ class OvalBrush extends Brush
         this.name = "Oval"
 
     method paint(gc=GC, location=Point) public
-        gc.drawOval(location.x, location.y, 10, 10)
-        gc.fillOval(location.x, location.y, 10, 10)
+        gc.drawOval(location.x, location.y, 9, 9)
+        gc.fillOval(location.x - 1, location.y - 1, 12, 12)

@@ -11,9 +11,6 @@ fun main(args: Array<String>) {
     val resourcePath = "".javaClass::class.java.getResource("/brushes/").path
     BrushUtil.loadBrushes(resourcePath)
 
-    // Set the active brush
-    BrushUtil.activeBrush = BrushUtil.brushList[0]
-
     // Run the window script
     val ruby = ScriptingContainer(LocalVariableBehavior.PERSISTENT)
     ruby.runScriptlet(PathType.RELATIVE, "src/main/ruby/com/deflatedpickle/wheeze/window.rb")

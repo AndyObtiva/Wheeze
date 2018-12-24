@@ -12,4 +12,4 @@ class RectangleBrush extends Brush
 
     method paint(gc=GC, location=Point) public
         gc.drawRectangle(location.x, location.y, 10, 10)
-        gc.fillRectangle(location.x, location.y, 10, 10)
+        gc.fillRectangle(location.x, location.y, 11, 11)

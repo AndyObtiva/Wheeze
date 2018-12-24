@@ -23,6 +23,9 @@ public class BrushList extends Composite {
         }
 
         list.addListener(SWT.Selection, event -> BrushUtil.INSTANCE.setActiveBrush(BrushUtil.INSTANCE.getBrushList().get(list.getSelectionIndex())));
+        list.select(0);
+
+        BrushUtil.INSTANCE.setActiveBrush(BrushUtil.INSTANCE.getBrushList().get(0));
 
         this.pack();
         this.getParent().layout();
