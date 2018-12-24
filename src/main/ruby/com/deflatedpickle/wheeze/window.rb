@@ -27,11 +27,11 @@ class Window
 
     @shell = shell do
       text 'Wheeze'
-      minimum_size 500, 400
+      minimum_size 600, 400
       layout GridLayout.new(3, false)
 
       tool_bar(:vertical, :wrap, :shadow_out) do
-        grid_data = GridData.new(:center.swt_constant, :fill.swt_constant, false, true)
+        grid_data = GridData.new(:fill.swt_constant, :fill.swt_constant, false, true)
         layout_data grid_data
 
         @button_brush = tool_item(:radio) do
@@ -52,7 +52,13 @@ class Window
         end
       end
 
-      @brush_list_placeholder = label(:none)
+      @brush_panel = composite(:border) do
+        layout GridLayout.new
+
+        grid_data = GridData.new(:fill.swt_constant, :fill.swt_constant, false, true)
+        grid_data.widthHint = 100
+        layout_data grid_data
+      end
 
       # TODO: Find a better way to do custom widgets
       on_focus_gained do
@@ -61,10 +67,7 @@ class Window
 
           CompatibilityUtil.get_instance.shell = @shell.widget
 
-          brush_list = BrushList.new(CompatibilityUtil.get_instance.shell, SWT::BORDER)
-          brush_list.move_above @brush_list_placeholder.widget
-          @brush_list_placeholder.widget.dispose
-          @shell.widget.layout
+          BrushList.new(@brush_panel.widget, SWT::NONE)
 
           @canvas.widget.set_focus
         end

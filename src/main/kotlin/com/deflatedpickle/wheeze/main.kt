@@ -7,9 +7,11 @@ import org.jruby.embed.ScriptingContainer
 
 
 fun main(args: Array<String>) {
+    // Load the brushes
     val resourcePath = "".javaClass::class.java.getResource("/brushes/").path
     BrushUtil.loadBrushes(resourcePath)
 
+    // Set the active brush
     BrushUtil.activeBrush = BrushUtil.brushList[0]
 
     // Run the window script
