@@ -1,6 +1,6 @@
 package com.deflatedpickle.wheeze.util;
 
-import com.deflatedpickle.wheeze.widgets.BrushConfigure;
+import com.deflatedpickle.wheeze.widgets.BrushOptions;
 import com.deflatedpickle.wheeze.widgets.PaintableCanvas;
 import org.eclipse.swt.widgets.Shell;
 
@@ -13,7 +13,7 @@ public class CompatibilityUtil {
 
     public Shell shell;
     public PaintableCanvas paintableCanvas;
-    public BrushConfigure brushConfigure;
+    public BrushOptions brushOptions;
 
     private CompatibilityUtil() {
     }

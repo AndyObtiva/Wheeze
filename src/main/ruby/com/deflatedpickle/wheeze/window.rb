@@ -50,8 +50,22 @@ class Window
         layout GridLayout.new
 
         grid_data = GridData.new(:fill.swt_constant, :fill.swt_constant, false, true)
-        grid_data.widthHint = 180
+        grid_data.widthHint = 200
         layout_data grid_data
+
+        @options_group = group do
+          text "Brush Options"
+          options_data = GridData.new(:fill.swt_constant, :fill.swt_constant, true, true)
+          options_data.widthHint = 160
+          layout_data options_data
+        end
+
+        @list_group = group do
+          text "Brushes"
+          list_data = GridData.new(:fill.swt_constant, :fill.swt_constant, true, true)
+          list_data.widthHint = 160
+          layout_data list_data
+        end
       end
 
       # TODO: Find a better way to do custom widgets
@@ -61,9 +75,11 @@ class Window
 
           CompatibilityUtil.get_instance.shell = @shell.widget
 
-          @brush_configure = BrushConfigure.new(@brush_panel.widget, SWT::NONE)
-          CompatibilityUtil.get_instance.brushConfigure = @brush_configure
-          BrushList.new(@brush_panel.widget, SWT::NONE)
+          @brush_options = BrushOptions.new(@options_group.widget, SWT::NONE)
+          CompatibilityUtil.get_instance.brushOptions = @brush_options
+          @options_group.widget.layout
+
+          BrushList.new(@list_group.widget, SWT::NONE)
 
           @paint_canvas = PaintableCanvas.new(@shell.widget, SWT::BORDER | SWT::DOUBLE_BUFFERED | SWT::NO_REDRAW_RESIZE | SWT::NO_BACKGROUND)
           CompatibilityUtil.get_instance.paintableCanvas = @paint_canvas

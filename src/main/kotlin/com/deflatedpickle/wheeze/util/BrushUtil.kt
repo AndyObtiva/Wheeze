@@ -22,7 +22,7 @@ object BrushUtil {
     var activeBrush: Brush? = null
     set(value) {
         field = value
-        CompatibilityUtil.getInstance().brushConfigure.updateControls()
+        CompatibilityUtil.getInstance().brushOptions.updateControls()
     }
     // /**
     //  * The list of registered erasers.

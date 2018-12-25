@@ -3,17 +3,14 @@ package com.deflatedpickle.wheeze.widgets;
 import com.deflatedpickle.wheeze.brush.Brush;
 import com.deflatedpickle.wheeze.brush.BrushProperties;
 import com.deflatedpickle.wheeze.util.BrushUtil;
-import com.deflatedpickle.wheeze.util.CompatibilityUtil;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 
 import java.util.Objects;
 
-public class BrushConfigure extends Composite {
+public class BrushOptions extends Composite {
     private Label name = new Label(this, SWT.BORDER);
 
     private Label modeLabel = new Label(this, SWT.NONE);
@@ -36,7 +33,7 @@ public class BrushConfigure extends Composite {
     // private Button opacityPressure = new Button(this, SWT.CHECK);
     // private Button densityPressure = new Button(this, SWT.CHECK);
 
-    public BrushConfigure(Composite parent, int style) {
+    public BrushOptions(Composite parent, int style) {
         super(parent, style);
 
         this.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -46,7 +43,7 @@ public class BrushConfigure extends Composite {
         twoWide.horizontalSpan = 2;
         twoWide.grabExcessHorizontalSpace = true;
         twoWide.horizontalAlignment = SWT.CENTER;
-        twoWide.widthHint = this.getParent().getClientArea().width;
+        twoWide.widthHint = this.getParent().getClientArea().width - 40;
 
         name.setLayoutData(twoWide);
 

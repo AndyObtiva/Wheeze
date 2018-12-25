@@ -88,7 +88,7 @@ public class PaintableCanvas extends Canvas {
             case ERASER:
             case NONE:
             default:
-                color = SWT.COLOR_WHITE;
+                color = SWT.COLOR_TRANSPARENT;
                 break;
         }
 
