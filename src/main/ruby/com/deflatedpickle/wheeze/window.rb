@@ -64,6 +64,7 @@ class Window
           BrushList.new(@brush_panel.widget, SWT::NONE)
 
           @paint_canvas = PaintableCanvas.new(@shell.widget, SWT::BORDER | SWT::DOUBLE_BUFFERED | SWT::NO_REDRAW_RESIZE | SWT::NO_BACKGROUND)
+          CompatibilityUtil.get_instance.paintableCanvas = @paint_canvas
         end
       end
     end

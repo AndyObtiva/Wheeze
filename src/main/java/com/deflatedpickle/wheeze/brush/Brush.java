@@ -1,7 +1,7 @@
 package com.deflatedpickle.wheeze.brush;
 
-import com.deflatedpickle.wheeze.util.Size;
-import org.eclipse.swt.graphics.GC;
+import com.deflatedpickle.wheeze.util.CompatibilityUtil;
+import com.deflatedpickle.wheeze.util.RangedInteger;
 import org.eclipse.swt.graphics.Point;
 
 /**
@@ -19,110 +19,77 @@ public class Brush {
         CONTINUOUS
     }
 
+    public BrushProperties brushProperties;
+
     /**
-     * The name of the brush
+     * The brush script to draw with.
      */
-    @SuppressWarnings("WeakerAccess")
-    public String name;
-    /**
-     * The brush mode.
-     *
-     * @see Mode
-     */
-    @SuppressWarnings("WeakerAccess")
-    public final Mode mode;
-    /**
-     * The width of the brush.
-     */
-    @SuppressWarnings("WeakerAccess")
-    public Size width;
-    // /**
-    //  * If or not the width is controlled by touch/pen pressure.
-    //  */
-    // @SuppressWarnings("WeakerAccess")
-    // public Boolean widthByPressure;
-    /**
-     * The height of the brush.
-     */
-    @SuppressWarnings("WeakerAccess")
-    public Size height;
-    // /**
-    //  * If or not the height is controlled by touch/pen pressure.
-    //  */
-    // @SuppressWarnings("WeakerAccess")
-    // public Boolean heightByPressure;
-    /**
-     * The opacity of the brush from 0 to 255.
-     */
-    @SuppressWarnings("WeakerAccess")
-    public Integer opacity;
-    // /**
-    //  * If or not the opacity is controlled by touch/pen pressure.
-    //  */
-    // @SuppressWarnings("WeakerAccess")
-    // public Boolean opacityByPressure;
-    /**
-     * The density of the brush.
-     */
-    @SuppressWarnings("WeakerAccess")
-    public Float density;
-    // /**
-    //  * If or not the density is controlled by touch/pen pressure.
-    //  */
-    // @SuppressWarnings("WeakerAccess")
-    // public Boolean densityByPressure;
+    public BrushScript brushScript;
 
     /**
      * Constructs a new brush with the default values.
      */
     public Brush() {
-        this.name = "Untitled Brush";
-        this.mode = Mode.CONTINUOUS;
-
-        this.width = new Size(20, 0);
-        this.height = new Size(20, 0);
-        this.opacity = 100;
-        this.density = 1f;
+        this.brushProperties = new BrushProperties(
+                "Untitled Brush",
+                Mode.CONTINUOUS,
+                new RangedInteger(1, 10, 100),
+                new RangedInteger(1, 10, 100),
+                100,
+                100,
+                false,
+                false,
+                false,
+                false
+        );
     }
 
     /**
      * Constructs a new brush with custom values.
      *
-     * @param name The name of the brush.
-     * @param mode The mode the brush draws in.
-     * @param width The width of the brush.
-     * @param height The height of the brush.
-     * @param opacity The opacity of the brush.
-     * @param density The density of the brush.
-     * // @param widthByPressure If or not the width is affected by touch/pen pressure.
-     * // @param heightByPressure If or not the height is affected by touch/pen pressure.
-     * // @param opacityByPressure If or not the opacity is affected by touch/pen pressure.
-     * // @param densityByPressure If or not the density is affected by touch/pen pressure.
+     * @param name    The name of the brush
+     * @param mode    The mode the brush draws in
+     * @param width   The width of the brush
+     * @param height  The height of the brush
+     * @param opacity The opacity of the brush
+     * @param density The density of the brush
+     * @param widthPressure If or not the width is affected by touch/pen pressure
+     * @param heightPressure If or not the height is affected by touch/pen pressure
+     * @param opacityPressure If or not the opacity is affected by touch/pen pressure
+     * @param densityPressure If or not the density is affected by touch/pen pressure
      */
     public Brush(String name, Mode mode,
-                 Size width, Size height, Integer opacity, Float density /*,
-                 Boolean widthByPressure, Boolean heightByPressure, Boolean opacityByPressure, Boolean densityByPressure*/) {
-        this.name = name;
-        this.mode = mode;
-
-        this.width = width;
-        this.height = height;
-        this.opacity = opacity;
-        this.density = density;
-
-        // this.widthByPressure = widthByPressure;
-        // this.heightByPressure = heightByPressure;
-        // this.opacityByPressure = opacityByPressure;
-        // this.densityByPressure = densityByPressure;
+                 RangedInteger width, RangedInteger height, Integer opacity, Integer density,
+                 Boolean widthPressure, Boolean heightPressure, Boolean opacityPressure, Boolean densityPressure) {
+        this.brushProperties = new BrushProperties(
+                name,
+                mode,
+                width,
+                height,
+                opacity,
+                density,
+                widthPressure,
+                heightPressure,
+                opacityPressure,
+                densityPressure
+        );
     }
 
     /**
-     * Places a single paint of the brush
+     * Constructs a new brush with the given properties.
      *
-     * @param gc The canvas the brush is drawing on.
-     * @param location The location to draw at.
-     * // @param penPressure The current tablet pressure applied.
+     * @param brushProperties The properties
      */
-    public void paint(GC gc, Point location) {
+    public Brush(BrushProperties brushProperties) {
+        this.brushProperties = brushProperties;
+    }
+
+    /**
+     * Passes brush information into the brush script.
+     *
+     * @param location The mouse location
+     */
+    public void paintScript(Point location) {
+        this.brushScript.paint(CompatibilityUtil.getInstance().paintableCanvas, location, brushProperties);
     }
 }

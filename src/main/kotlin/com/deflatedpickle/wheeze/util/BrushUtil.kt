@@ -1,6 +1,7 @@
 package com.deflatedpickle.wheeze.util
 
 import com.deflatedpickle.wheeze.brush.Brush
+import com.deflatedpickle.wheeze.brush.BrushScript
 import org.netrexx.process.NetRexxA
 import java.io.File
 import java.lang.Class
@@ -11,6 +12,10 @@ object BrushUtil {
      * The list of registered brushes.
      */
     val brushList = mutableListOf<Brush>()
+    /**
+     * The list of registered brush scripts.
+     */
+    val brushScriptList = mutableMapOf<String, BrushScript>()
     /**
      * The brush currently selected.
      */
@@ -29,12 +34,12 @@ object BrushUtil {
      *
      * @param path The path to load brushes from.
      */
-    fun loadBrushes(path: String) {
+    fun loadBrushScripts(path: String) {
         val fileArray = mutableListOf<String>()
         val nameArray = mutableListOf<String>()
 
         for (i in File(path).walkTopDown().drop(1)) {
-            if (i.readText().contains("extends Brush")) {
+            if (i.readText().contains("extends BrushScript")) {
                 fileArray.add(i.absolutePath)
                 nameArray.add(i.nameWithoutExtension)
             }
@@ -46,8 +51,17 @@ object BrushUtil {
         this.netRexx.parse(fileArray.toTypedArray(), arrayOf())
 
         for (i in nameArray) {
-            val clazz: Class<Brush> = this.netRexx.getClassObject("com.deflatedpickle.wheeze.brush.custom", i) as Class<Brush>
-            this.brushList.add(clazz.newInstance())
+            val clazz: Class<BrushScript> = this.netRexx.getClassObject("com.deflatedpickle.wheeze.brush.custom", i) as Class<BrushScript>
+            val instance = clazz.newInstance()
+            this.brushScriptList[instance.name.toLowerCase()] = instance
         }
+    }
+
+    fun newBrush(brushScript: BrushScript) {
+        val instance = Brush()
+        if (this.brushList.size > 0) instance.brushProperties.name += " ${this.brushList.size}"
+        instance.brushScript = brushScript
+
+        this.brushList.add(instance)
     }
 }

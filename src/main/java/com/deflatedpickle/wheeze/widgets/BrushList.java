@@ -19,7 +19,7 @@ public class BrushList extends Composite {
         List list = new List(this, SWT.BORDER | SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL);
 
         for (Brush brush : BrushUtil.INSTANCE.getBrushList()) {
-            list.add(brush.name);
+            list.add(brush.brushProperties.name);
         }
 
         list.addListener(SWT.Selection, event -> BrushUtil.INSTANCE.setActiveBrush(BrushUtil.INSTANCE.getBrushList().get(list.getSelectionIndex())));

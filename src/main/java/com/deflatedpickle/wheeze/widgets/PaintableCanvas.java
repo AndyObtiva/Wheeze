@@ -16,8 +16,8 @@ import org.eclipse.swt.widgets.Event;
 import java.util.Objects;
 
 public class PaintableCanvas extends Canvas {
+    public GC paintGC = new GC(this);
     private Canvas canvas = this;
-    private GC paintGC = new GC(this);
 
     private ToolType activeToolType = ToolType.BRUSH;
 
@@ -106,7 +106,7 @@ public class PaintableCanvas extends Canvas {
                     cursorLocation = new Point(0, 0);
                 }
 
-                Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).paint(this.gc, cursorLocation);
+                Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).paintScript(cursorLocation);
             }
         }));
     }
