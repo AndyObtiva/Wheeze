@@ -1,5 +1,6 @@
 package com.deflatedpickle.wheeze.widgets;
 
+import com.deflatedpickle.wheeze.brush.Brush;
 import com.deflatedpickle.wheeze.util.BrushUtil;
 import com.deflatedpickle.wheeze.util.ToolType;
 import org.eclipse.swt.SWT;
@@ -55,7 +56,7 @@ public class PaintableCanvas extends Canvas {
         });
 
         this.addMouseMoveListener(e -> {
-            if (doDraw) {
+            if (doDraw && Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.mode == Brush.Mode.CONTINUOUS) {
                 canvas.setFocus();
                 doPaint();
             }

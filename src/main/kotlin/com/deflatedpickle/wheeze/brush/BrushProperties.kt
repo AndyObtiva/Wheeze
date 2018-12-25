@@ -6,12 +6,12 @@ import com.deflatedpickle.wheeze.util.RangedInteger
  * A packet of data to send to the brush scripts.
  */
 class BrushProperties(@JvmField var name: String,
-                      @JvmField val mode: Brush.Mode,
-                      @JvmField val width: RangedInteger,
-                      @JvmField val height: RangedInteger,
-                      @JvmField val opacity: Int,
-                      @JvmField val density: Int,
-                      @JvmField val widthPressure: Boolean,
-                      @JvmField val heightPressure: Boolean,
-                      @JvmField val opacityPressure: Boolean,
-                      @JvmField val densityPressure: Boolean)
+                      @JvmField var mode: Brush.Mode,
+                      @JvmField var width: RangedInteger,
+                      @JvmField var height: RangedInteger,
+                      @JvmField var opacity: Int,
+                      @JvmField var density: Int,
+                      @JvmField var widthPressure: Boolean,
+                      @JvmField var heightPressure: Boolean,
+                      @JvmField var opacityPressure: Boolean,
+                      @JvmField var densityPressure: Boolean)

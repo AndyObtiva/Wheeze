@@ -21,7 +21,7 @@ class Window
 
     @shell = shell do
       text 'Wheeze'
-      minimum_size 600, 400
+      minimum_size 800, 600
       layout GridLayout.new(3, false)
 
       tool_bar(:vertical, :wrap, :shadow_out) do
@@ -50,7 +50,7 @@ class Window
         layout GridLayout.new
 
         grid_data = GridData.new(:fill.swt_constant, :fill.swt_constant, false, true)
-        grid_data.widthHint = 100
+        grid_data.widthHint = 180
         layout_data grid_data
       end
 
@@ -61,6 +61,8 @@ class Window
 
           CompatibilityUtil.get_instance.shell = @shell.widget
 
+          @brush_configure = BrushConfigure.new(@brush_panel.widget, SWT::NONE)
+          CompatibilityUtil.get_instance.brushConfigure = @brush_configure
           BrushList.new(@brush_panel.widget, SWT::NONE)
 
           @paint_canvas = PaintableCanvas.new(@shell.widget, SWT::BORDER | SWT::DOUBLE_BUFFERED | SWT::NO_REDRAW_RESIZE | SWT::NO_BACKGROUND)

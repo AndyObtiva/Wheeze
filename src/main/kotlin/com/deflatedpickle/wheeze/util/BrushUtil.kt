@@ -20,6 +20,10 @@ object BrushUtil {
      * The brush currently selected.
      */
     var activeBrush: Brush? = null
+    set(value) {
+        field = value
+        CompatibilityUtil.getInstance().brushConfigure.updateControls()
+    }
     // /**
     //  * The list of registered erasers.
     //  */

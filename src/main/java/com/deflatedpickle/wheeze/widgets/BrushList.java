@@ -12,9 +12,8 @@ public class BrushList extends Composite {
 
     public BrushList(Composite parent, int style) {
         super(parent, style);
-        this.setLayout(new FillLayout());
-
         this.setLayoutData(new GridData(GridData.FILL_BOTH));
+        this.setLayout(new FillLayout());
 
         List list = new List(this, SWT.BORDER | SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL);
 
