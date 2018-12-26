@@ -107,7 +107,7 @@ public class PaintableCanvas extends Canvas {
                     cursorLocation = new Point(0, 0);
                 }
 
-                Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).paintScript(cursorLocation);
+                Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).paintScript(paintGC, cursorLocation);
             }
         }));
     }

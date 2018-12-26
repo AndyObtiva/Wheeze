@@ -13,6 +13,8 @@ import java.util.Objects;
 public class BrushOptions extends Composite {
     private Label name = new Label(this, SWT.BORDER);
 
+    public BrushPreview brushPreview = new BrushPreview(this, SWT.BORDER);
+
     private Label modeLabel = new Label(this, SWT.NONE);
     private Combo mode = new Combo(this, SWT.BORDER | SWT.READ_ONLY);
 
@@ -41,11 +43,16 @@ public class BrushOptions extends Composite {
 
         GridData twoWide = new GridData();
         twoWide.horizontalSpan = 2;
-        twoWide.grabExcessHorizontalSpace = true;
         twoWide.horizontalAlignment = SWT.CENTER;
         twoWide.widthHint = this.getParent().getClientArea().width - 40;
 
         name.setLayoutData(twoWide);
+
+        GridData previewData = new GridData();
+        previewData.horizontalSpan = 2;
+        previewData.horizontalAlignment = SWT.CENTER;
+        previewData.widthHint = this.getParent().getClientArea().width - 20;
+        brushPreview.setLayoutData(previewData);
 
         mode.add("Single");
         mode.add("Continuous");
@@ -107,9 +114,16 @@ public class BrushOptions extends Composite {
             Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.height.setCurrent(size.getSelection());
             width.setSelection(size.getSelection());
             height.setSelection(size.getSelection());
+            brushPreview.redrawBrush();
         });
-        width.addListener(SWT.Selection, event -> Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.width.setCurrent(width.getSelection()));
-        height.addListener(SWT.Selection, event -> Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.height.setCurrent(height.getSelection()));
+        width.addListener(SWT.Selection, event -> {
+            Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.width.setCurrent(width.getSelection());
+            brushPreview.redrawBrush();
+        });
+        height.addListener(SWT.Selection, event -> {
+            Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.height.setCurrent(height.getSelection());
+            brushPreview.redrawBrush();
+        });
 
         // opacity.addListener(SWT.Selection, event -> Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.opacity = opacity.getSelection());
         // density.addListener(SWT.Selection, event -> Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.density = density.getSelection());
@@ -126,6 +140,8 @@ public class BrushOptions extends Composite {
         BrushProperties brushProperties = Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties;
 
         name.setText(brushProperties.name);
+
+        brushPreview.redrawBrush();
 
         switch (brushProperties.mode) {
             case SINGLE:

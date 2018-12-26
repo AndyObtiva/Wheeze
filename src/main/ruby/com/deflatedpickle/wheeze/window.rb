@@ -21,7 +21,7 @@ class Window
 
     @shell = shell do
       text 'Wheeze'
-      minimum_size 800, 600
+      minimum_size 800, 660
       layout GridLayout.new(3, false)
 
       tool_bar(:vertical, :wrap, :shadow_out) do

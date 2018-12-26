@@ -2,6 +2,7 @@ package com.deflatedpickle.wheeze.brush;
 
 import com.deflatedpickle.wheeze.util.CompatibilityUtil;
 import com.deflatedpickle.wheeze.util.RangedInteger;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
 /**
@@ -89,7 +90,7 @@ public class Brush {
      *
      * @param location The mouse location
      */
-    public void paintScript(Point location) {
-        this.brushScript.paint(CompatibilityUtil.getInstance().paintableCanvas, location, brushProperties);
+    public void paintScript(GC gc, Point location) {
+        this.brushScript.paint(gc, location, brushProperties);
     }
 }

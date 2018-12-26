@@ -1,6 +1,7 @@
 package com.deflatedpickle.wheeze.brush
 
 import com.deflatedpickle.wheeze.util.RangedInteger
+import java.io.Serializable
 
 /**
  * A packet of data to send to the brush scripts.
@@ -14,4 +15,4 @@ class BrushProperties(@JvmField var name: String,
                       @JvmField var widthPressure: Boolean,
                       @JvmField var heightPressure: Boolean,
                       @JvmField var opacityPressure: Boolean,
-                      @JvmField var densityPressure: Boolean)
+                      @JvmField var densityPressure: Boolean) : Serializable
