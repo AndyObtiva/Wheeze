@@ -59,21 +59,9 @@ public class BrushOptions extends Composite {
         GridData scaleData = new GridData();
         scaleData.horizontalSpan = 2;
 
-        // sizeLabel.setText("Size");
-        // size.setLayoutData(scaleData);
-        // size.setIncrement(1);
-
         size.setLayoutData(scaleData);
         width.setLayoutData(scaleData);
         height.setLayoutData(scaleData);
-
-        // widthLabel.setText("Width");
-        // width.setLayoutData(scaleData);
-        // width.setIncrement(1);
-
-        // heightLabel.setText("Height");
-        // height.setLayoutData(scaleData);
-        // height.setIncrement(1);
 
         // opacityLabel.setText("Opacity");
         // opacity.setLayoutData(scaleData);

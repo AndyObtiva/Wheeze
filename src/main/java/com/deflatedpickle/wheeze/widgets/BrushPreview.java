@@ -38,12 +38,17 @@ public class BrushPreview extends Canvas {
     public void redrawBrush() {
         bezierPoints.clear();
 
+        BrushProperties brushProperties = Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties;
+
         Rectangle displayRect = canvas.getClientArea();
 
-        ImmutablePair<Float, Float> startPoint = new ImmutablePair<>(10f, displayRect.height / 2f);
-        ImmutablePair<Float, Float> endPoint = new ImmutablePair<>(displayRect.width - 20f, displayRect.height / 2f);
-        ImmutablePair<Float, Float> leftControl = new ImmutablePair<>(60f, (displayRect.height / 2f) - 40f);
-        ImmutablePair<Float, Float> rightControl = new ImmutablePair<>(displayRect.width - 60f, (displayRect.height / 2f) + 40f);
+        Float pointX = (brushProperties.width.getCurrent() / 10) / 2f;
+        Float pointY = displayRect.height / 2f - (brushProperties.height.getCurrent() / 10) / 2;
+
+        ImmutablePair<Float, Float> startPoint = new ImmutablePair<>(10f - pointX, pointY);
+        ImmutablePair<Float, Float> endPoint = new ImmutablePair<>(displayRect.width - 20f, pointY);
+        ImmutablePair<Float, Float> leftControl = new ImmutablePair<>(60f, pointY - 40f);
+        ImmutablePair<Float, Float> rightControl = new ImmutablePair<>(displayRect.width - pointX - 60f, pointY + 40f);
 
         for (float t = 0.0f; t < 1; t += 0.01f) {
             bezierPoints.add(new ImmutablePair<>(
