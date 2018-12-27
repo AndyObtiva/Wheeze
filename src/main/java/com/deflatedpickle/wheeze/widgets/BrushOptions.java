@@ -18,12 +18,9 @@ public class BrushOptions extends Composite {
     private Label modeLabel = new Label(this, SWT.NONE);
     private Combo mode = new Combo(this, SWT.BORDER | SWT.READ_ONLY);
 
-    private Label sizeLabel = new Label(this, SWT.NONE);
-    private Scale size = new Scale(this, SWT.NONE);
-    private Label widthLabel = new Label(this, SWT.NONE);
-    private Scale width = new Scale(this, SWT.NONE);
-    private Label heightLabel = new Label(this, SWT.NONE);
-    private Scale height = new Scale(this, SWT.NONE);
+    private SizeScale size = new SizeScale(this, SWT.NONE, "Size");
+    private SizeScale width = new SizeScale(this, SWT.NONE, "Width");
+    private SizeScale height = new SizeScale(this, SWT.NONE, "Height");
 
     // private Label opacityLabel = new Label(this, SWT.NONE);
     // private Scale opacity = new Scale(this, SWT.NONE);
@@ -60,19 +57,23 @@ public class BrushOptions extends Composite {
         modeLabel.setText("Mode");
 
         GridData scaleData = new GridData();
-        scaleData.widthHint = 120;
+        scaleData.horizontalSpan = 2;
 
-        sizeLabel.setText("Size");
+        // sizeLabel.setText("Size");
+        // size.setLayoutData(scaleData);
+        // size.setIncrement(1);
+
         size.setLayoutData(scaleData);
-        size.setIncrement(1);
-
-        widthLabel.setText("Width");
         width.setLayoutData(scaleData);
-        width.setIncrement(1);
-
-        heightLabel.setText("Height");
         height.setLayoutData(scaleData);
-        height.setIncrement(1);
+
+        // widthLabel.setText("Width");
+        // width.setLayoutData(scaleData);
+        // width.setIncrement(1);
+
+        // heightLabel.setText("Height");
+        // height.setLayoutData(scaleData);
+        // height.setIncrement(1);
 
         // opacityLabel.setText("Opacity");
         // opacity.setLayoutData(scaleData);
@@ -109,19 +110,39 @@ public class BrushOptions extends Composite {
             }
         });
 
-        size.addListener(SWT.Selection, event -> {
-            Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.width.setCurrent(size.getSelection());
-            Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.height.setCurrent(size.getSelection());
-            width.setSelection(size.getSelection());
-            height.setSelection(size.getSelection());
+        // FIXME: It works, but this whole mess could be done better
+        size.scale.addListener(SWT.Selection, event -> {
+            Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.width.setCurrent(size.scale.getSelection());
+            Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.height.setCurrent(size.scale.getSelection());
+            width.scale.setSelection(size.scale.getSelection());
+            height.scale.setSelection(size.scale.getSelection());
+            width.spinner.setSelection(size.scale.getSelection());
+            height.spinner.setSelection(size.scale.getSelection());
             brushPreview.redrawBrush();
         });
-        width.addListener(SWT.Selection, event -> {
-            Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.width.setCurrent(width.getSelection());
+        size.spinner.addListener(SWT.Selection, event -> {
+            Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.width.setCurrent(size.spinner.getSelection());
+            Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.height.setCurrent(size.spinner.getSelection());
+            width.scale.setSelection(size.spinner.getSelection());
+            height.scale.setSelection(size.spinner.getSelection());
+            width.spinner.setSelection(size.spinner.getSelection());
+            height.spinner.setSelection(size.spinner.getSelection());
             brushPreview.redrawBrush();
         });
-        height.addListener(SWT.Selection, event -> {
-            Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.height.setCurrent(height.getSelection());
+        width.scale.addListener(SWT.Selection, event -> {
+            Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.width.setCurrent(width.scale.getSelection());
+            brushPreview.redrawBrush();
+        });
+        width.spinner.addListener(SWT.Selection, event -> {
+            Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.width.setCurrent(width.spinner.getSelection());
+            brushPreview.redrawBrush();
+        });
+        height.scale.addListener(SWT.Selection, event -> {
+            Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.height.setCurrent(height.scale.getSelection());
+            brushPreview.redrawBrush();
+        });
+        height.spinner.addListener(SWT.Selection, event -> {
+            Objects.requireNonNull(BrushUtil.INSTANCE.getActiveBrush()).brushProperties.height.setCurrent(height.spinner.getSelection());
             brushPreview.redrawBrush();
         });
 
@@ -153,13 +174,23 @@ public class BrushOptions extends Composite {
                 break;
         }
 
-        width.setSelection(brushProperties.width.getCurrent());
-        width.setMinimum(brushProperties.width.getMin());
-        width.setMaximum(brushProperties.width.getMax());
+        // width.setSelection(brushProperties.width.getCurrent());
+        // width.setMinimum(brushProperties.width.getMin());
+        // width.setMaximum(brushProperties.width.getMax());
 
-        height.setSelection(brushProperties.height.getCurrent());
-        height.setMinimum(brushProperties.height.getMin());
-        height.setMaximum(brushProperties.height.getMax());
+        // height.setSelection(brushProperties.height.getCurrent());
+        // height.setMinimum(brushProperties.height.getMin());
+        // height.setMaximum(brushProperties.height.getMax());
+
+        width.updateValues(brushProperties.width.getMin(),
+                brushProperties.width.getMax(),
+                brushProperties.width.getCurrent(),
+                1);
+
+        height.updateValues(brushProperties.height.getMin(),
+                brushProperties.height.getMax(),
+                brushProperties.height.getCurrent(),
+                1);
 
         // opacity.setSelection(brushProperties.opacity);
 

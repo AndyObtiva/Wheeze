@@ -21,7 +21,7 @@ class Window
 
     @shell = shell do
       text 'Wheeze'
-      minimum_size 800, 660
+      minimum_size 800, 700
       layout GridLayout.new(3, false)
 
       tool_bar(:vertical, :wrap, :shadow_out) do
@@ -50,7 +50,7 @@ class Window
         layout GridLayout.new
 
         grid_data = GridData.new(:fill.swt_constant, :fill.swt_constant, false, true)
-        grid_data.widthHint = 200
+        grid_data.widthHint = 220
         layout_data grid_data
 
         @options_group = group do
